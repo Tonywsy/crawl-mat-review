@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>葵爸的爬爬垫大横评</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; background:#f5f7fa; color:#222; line-height:1.6; }
+  .wrap { max-width:960px; margin:0 auto; padding:24px 16px 60px; }
+  header { text-align:center; padding:32px 0 12px; }
+  header h1 { font-size:28px; font-weight:800; letter-spacing:1px; }
+  header .sub { color:#888; margin-top:6px; font-size:14px; }
+  .section { background:#fff; border-radius:14px; padding:22px; margin:18px 0; box-shadow:0 2px 12px rgba(0,0,0,.05); }
+  .section h2 { font-size:20px; border-left:4px solid #1E5AA8; padding-left:10px; margin-bottom:6px; }
+  .section-desc { color:#666; font-size:14px; margin-bottom:14px; }
+  .chart-s { font-size:14px; color:#555; background:#f0f4fa; border-radius:10px; padding:12px 14px; margin-top:12px; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; }
+  .card { border:1px solid #eee; border-radius:12px; padding:14px; }
+  .card h3 { font-size:16px; margin-bottom:6px; }
+  .card .price { font-size:22px; font-weight:800; color:#C0392B; }
+  .card .unit { color:#888; font-size:13px; margin-top:2px; }
+  .card ul { list-style:none; margin-top:8px; font-size:13px; }
+  .card li { display:flex; justify-content:space-between; padding:3px 0; border-bottom:1px dashed #f0f0f0; }
+  .card li span{color:#666;}
+  .card .tagline { display:inline-block; font-size:12px; background:#eef4fb; color:#1E5AA8; border-radius:20px; padding:2px 10px; margin-bottom:8px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; margin-top:8px; }
+  th,td { border:1px solid #e8e8e8; padding:8px 8px; text-align:center; }
+  th { background:#1E5AA8; color:#fff; font-weight:600; }
+  tr:nth-child(even) td { background:#fafcff; }
+  td.hl { background:#fff4e6 !important; font-weight:700; }
+  td.dim { text-align:left; font-weight:600; }
+  .disclaimer { font-size:12px; color:#999; margin-top:18px; padding:14px; background:#f7f7f7; border-radius:10px; }
+  .radar-box { width:100%; height:430px; }
+  .bar-box { width:100%; height:360px; }
+  .callout { border-radius:10px; padding:12px 14px; margin-top:14px; font-size:14px; }
+  .callout.warn { background:#fff8e6; border:1px solid #f0d890; color:#7a5c00; }
+  .callout.good { background:#eef8ef; border:1px solid #bfe3c2; color:#2E5D33; }
+  .pit { display:flex; gap:12px; padding:12px 0; border-bottom:1px dashed #eee; }
+  .pit:last-child { border-bottom:none; }
+  .pit .num { flex:0 0 32px; height:32px; border-radius:50%; background:#C0392B; color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; }
+  .pit .num.green { background:#2E7D32; }
+  .pit b { display:block; }
+  .pit p { font-size:13px; color:#555; }
+  .promo { background:linear-gradient(135deg,#1E5AA8,#3d7bd6); color:#fff; border-radius:12px; padding:16px 18px; margin:18px 0; font-size:14px; }
+  .promo a { color:#ffe9a8; }
+  .legend-note{font-size:12px;color:#999;margin-top:6px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>葵爸的爬爬垫大横评</h1>
+    <div class="sub">7 款热销爬爬垫 · ¥116–¥738 全价格带 · 数据来自电商平台商品页 / 消委会比较试验 / 品牌检测报告 · 采集 2026-08-27</div>
+  </header>
+
+  <div class="promo">
+    🔗 往期横评传送门：<a href="https://tonywsy.github.io/diaper-review/">纸尿裤大横评</a> ·
+    <a href="https://tonywsy.github.io/baby-formula-comparison/">国产1段奶粉</a> ·
+    <a href="https://tonywsy.github.io/newborn-vaccine-review/">新生儿疫苗</a> ·
+    <a href="https://tonywsy.github.io/newborn-insurance-guide/">新生儿保险配置</a>
+  </div>
+
+  <!-- 30秒结论 -->
+  <div class="section">
+    <h2>30 秒先说结论</h2>
+    <table>
+      <tr><th>你要什么</th><th>直接看这款</th><th>参考价</th></tr>
+      <tr><td class="dim">第一张垫，闭眼不踩雷</td><td><b>贝博氏 babybox 包边折叠垫</b> 180×200×2.5cm</td><td>¥239</td></tr>
+      <tr><td class="dim">安全数据要最硬</td><td><b>曼龙 XPE 折叠垫</b> 180×200×2cm</td><td>¥259</td></tr>
+      <tr><td class="dim">百元预算 / 备用垫</td><td><b>欧孕 IXPE 拼接垫</b> 6片小象款</td><td>¥116</td></tr>
+      <tr><td class="dim">瓷砖硬地、宝宝爱摔</td><td><b>丸丫 XPE 3cm 厚垫</b> 150×200×3cm</td><td>¥420</td></tr>
+      <tr><td class="dim">预算足、要整张无折痕</td><td><b>贝易 IXPE+PU 整体垫</b> 180×240×2.5cm</td><td>¥738</td></tr>
+    </table>
+    <div class="chart-s">一句话版本：<b>主流家用 2cm 够用</b>；小月龄优先「折叠/整张」别用拼接；<b>EVA 拼接泡沫垫直接劝退</b>（甲酰胺重灾区）；安全看两样——3C 认证 + 甲酰胺检测报告。</div>
+  </div>
+
+  <!-- 科普：三步选垫法 -->
+  <div class="section">
+    <h2>选爬爬垫的「三步法」：材质 → 厚度 → 形态</h2>
+    <p class="section-desc">爬爬垫是国家强制 3C 认证产品（2018 年 12 月起无 3C 不得出厂销售），宝宝每天在上面趴几小时、还会啃边角，材质安全排第一。</p>
+    <table>
+      <tr><th>第一步：材质（安全排序）</th><th>第二步：厚度</th><th>第三步：形态</th></tr>
+      <tr>
+        <td style="text-align:left">
+          <b>IXPE ≈ XPE（首推）</b>：物理发泡、无异味、回弹好<br>
+          <b>PVC</b>：韩系厚垫常用，软但重、有气味、价高<br>
+          <b>EPE</b>：便宜但回弹差、轻微异味<br>
+          <b style="color:#C0392B">EVA（劝退）</b>：化学发泡，甲酰胺重灾区
+        </td>
+        <td style="text-align:left">
+          <b>1cm</b>：3 岁+看书玩玩具用<br>
+          <b>2cm</b>：万金油，学爬学步主力<br>
+          <b>2.5–3cm</b>：瓷砖/大理石硬地面<br>
+          <b>4cm</b>：爱跳娃专用，价高占地
+        </td>
+        <td style="text-align:left">
+          <b>整张</b>：无缝最安全，难收纳<br>
+          <b>折叠</b>：好收纳，折痕易藏灰<br>
+          <b>拼接</b>：灵活可组 L 型，缝隙藏奶渍、小片有卡喉风险，小月龄慎选
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 甲酰胺科普 -->
+  <div class="section">
+    <h2>先看安全底色：甲酰胺是什么，为什么 EVA 垫劝退</h2>
+    <p class="section-desc">甲酰胺是发泡垫的塑化发泡剂残留，被欧盟列为生殖毒性 1B 类物质，国标限值 ≤200mg/kg。2019 年深圳市品质消费研究院对 15 款热销爬行垫做比较试验，结果如下（mg/kg）：</p>
+    <div id="amide" class="bar-box"></div>
+    <div class="chart-s">看图说话：<b>超标 3 款（明德 / 亿恩忆 / 迪士尼九片款）全部是 EVA / EPE 材质</b>，其中明德超标 10 倍。而曼龙（52.9）、贝博氏、澳贝等 XPE 系均远低于限值——这就是「材质选对，安全就对了大半」的原因。数据来源：深圳市品质消费研究院 2019 比较试验、《宝安日报》《深圳晚报》报道。</div>
+  </div>
+
+  <!-- 参评清单 -->
+  <div class="section">
+    <h2>本期参评 7 款（按参考价升序）</h2>
+    <p class="section-desc">选品标准：京东/天猫在售、有独立商品页 + 可查评论数、覆盖百元到高端全价格带和三种形态。价格为参考价（日常到手价含店铺券，2026-08-27 采集），大促可能更低，吊牌价更高。</p>
+    <div class="cards" id="cards"></div>
+  </div>
+
+  <!-- 雷达图 -->
+  <div class="section">
+    <h2>六维能力雷达（作者主观模型）</h2>
+    <p class="section-desc">维度：安全背书 / 减震防摔 / 易清洁 / 收纳便携 / 颜值早教 / 性价比。分值为作者依据公开数据与用户口碑的主观加权，仅供横向参考，非第三方检测。</p>
+    <div id="radar" class="radar-box"></div>
+  </div>
+
+  <!-- 柱状图：元/㎡ -->
+  <div class="section">
+    <h2>公平比价：元/㎡ 单价对比</h2>
+    <p class="section-desc">尺寸不同（1.5×1.8m / 1.8×2m / 1.8×2.4m）直接比总价不公平，统一折算每平米单价——这是爬爬垫的「克单价」。</p>
+    <div id="unitprice" class="bar-box"></div>
+    <div class="chart-s">看图说话：<b>欧孕拼接 53.7 元/㎡ 是百元级地板价</b>；贝博氏 66.4 元/㎡ 拿下「国民销量王 + 2.5cm 厚度」，性价比最均衡；丸丫 3cm 厚垫贵在厚度，贝易整体垫贵在 PU 覆膜 + 整张无缝——溢价买的是形态和工艺，不是安全（安全上 7 款都过线）。</div>
+  </div>
+
+  <!-- 详细对比表 -->
+  <div class="section">
+    <h2>详细参数对比</h2>
+    <p class="section-desc">参数来自京东/天猫商品详情页（2026-08-27 采集）；「评论数」为京东同款/同系列累计评论；「安全背书」标注口径（第三方检测 / 品牌送检 / 消委会比较试验）。</p>
+    <div style="overflow-x:auto">
+    <table id="matrix"></table>
+    </div>
+  </div>
+
+  <!-- 选购建议（必填） -->
+  <div class="section">
+    <h2>选购建议：按你家的情况对号入座</h2>
+    <p class="section-desc">没有「最好的爬爬垫」，只有「最对路的垫」。按场景推荐，不搞单一冠军；7 款参评全覆盖。</p>
+    <table>
+      <tr><th>你的情况</th><th>优先看</th><th>为什么</th><th>注意</th></tr>
+      <tr><td class="dim">预算 100 出头 / 姥姥家备用 / 租房过渡</td><td><b>欧孕 IXPE 拼接</b>（¥116）</td><td>53.7 元/㎡ 地板价，可拼 L 型适配角落</td><td>拼接缝藏奶渍，需拆片清洗；小月龄别单独用</td></tr>
+      <tr><td class="dim">第一张垫，不想研究、闭眼买</td><td><b>贝博氏 包边折叠</b>（¥239）</td><td>京东 20 万+ 评论 98% 好评的国民款，2.5cm + 包边防抠咬</td><td>2019 消委会实测甲酰胺低于限值；压花面摩擦大</td></tr>
+      <tr><td class="dim">安全洁癖党 / 宝宝爱啃边角</td><td><b>曼龙 XPE 折叠</b>（¥259）</td><td>2026 年 Q1/Q2 送检甲酰胺、甲醛「双未检出」，行业首创 A 类包边 + 食品接触级测试</td><td>送检报告为品牌方委托第三方，非监督抽检</td></tr>
+      <tr><td class="dim">只信自营 / 图省心售后</td><td><b>京东京造 XPE 折叠</b>（¥246）</td><td>京东自营出品，双面抗菌（品牌方宣称），2 万+ 评论</td><td>150×200cm 铺开面积中等，大客厅要看大尺寸</td></tr>
+      <tr><td class="dim">颜值早教党 / 要图案能「上课」</td><td><b>babycare 可可那小岛</b>（¥261）</td><td>图案设计公认能打，大牌品控稳定</td><td>2019 消委会实测 95.7mg/kg 达标但不算最低档；溢价含品牌税</td></tr>
+      <tr><td class="dim">瓷砖/大理石地面 / 宝宝正处在「摔跤期」</td><td><b>丸丫 XPE 3cm 厚垫</b>（¥420）</td><td>本期最厚 3cm，减震缓冲最强；老爸抽检甲酰胺 ND</td><td>厚垫边缘有高度差，刚会走的娃注意绊；收纳体积大</td></tr>
+      <tr><td class="dim">预算充足 / 一步到位 / 硬要整张</td><td><b>贝易 IXPE+PU 整体垫</b>（¥738）</td><td>整张无折痕无缝隙，PU 覆膜耐刮好打理，180×240cm 大面积</td><td>卷筒收纳占地方，重；价格是贝博氏的 3 倍</td></tr>
+    </table>
+    <div class="callout warn">
+      <b>📌 下单前最后 3 句大实话：</b>① 到手先看 3C 标志 + 湿擦通风 2–3 天再用，「无味≠无毒」，香精能盖味；② 厚度看详情页是否标「实测值」，虚标 3cm 实测 2cm 是行业老坑；③ 拼接垫小月龄慎选——小片抠下来有卡喉风险。
+    </div>
+  </div>
+
+  <!-- 避坑清单 -->
+  <div class="section">
+    <h2>避坑清单：6 个高频坑</h2>
+    <div class="pit"><div class="num">1</div><div><b>EVA 拼接泡沫垫别买</b><p>2019 深检超标 3 款全是 EVA/EPE 系，某款超标 10 倍。9.9 元包邮的「泡沫地垫」多为 EVA，写给宝宝用的爬爬垫必须认 XPE/IXPE。</p></div></div>
+    <div class="pit"><div class="num">2</div><div><b>「无味」不是安全证明</b><p>刺鼻异味该退就退，但没味道也可能靠香精掩盖。认准 3C 认证 + 详情页可查的甲酰胺检测报告（ND 最优，≤200mg/kg 为国标线）。</p></div></div>
+    <div class="pit"><div class="num">3</div><div><b>厚度虚标</b><p>宣称 3cm 实测 2cm 的投诉不少。优先选详情页标注「实测厚度」并附检测报告的款，收货后自己拿尺量折边。</p></div></div>
+    <div class="pit"><div class="num">4</div><div><b>小月龄别急上拼接垫</b><p>拼接片会被宝宝抠起来啃，有误吞卡喉风险；缝隙夹手指、藏奶渍。6–10 个月学爬期优先整张或折叠。</p></div></div>
+    <div class="pit"><div class="num">5</div><div><b>别迷信「越厚越好」</b><p>2cm 是万金油；4cm 溢价明显且对刚会走的宝宝有高度差，木地板家庭 2cm 足够，钱花在面积上比花在厚度上划算。</p></div></div>
+    <div class="pit"><div class="num">6</div><div><b>收到直接铺 = 踩坑</b><p>新垫先整体湿擦一遍 + 通风晾 2–3 天；日常每周至少一次湿擦消毒，避免暴晒（覆膜易翘边）。</p></div></div>
+  </div>
+
+  <!-- 比价表 -->
+  <div class="section">
+    <h2>参考价与到手口径（采集 2026-08-27）</h2>
+    <p class="section-desc">价格为电商日常到手参考价（含店铺券），大促（618/双11）通常更低 ¥20–60；吊牌价/面价通常更高。波动以实际页面为准。</p>
+    <table id="price"></table>
+  </div>
+
+  <div class="disclaimer">
+    免责声明：本测评基于各产品电商平台商品页公开参数、深圳市品质消费研究院 2019 年比较试验公开数据及品牌方公开送检报告整理，仅供参考，不构成消费建议或官方背书。甲酰胺历史数据（2019）仅反映当时批次，不代表品牌当前产品水平；「抗菌」「ND 未检出」等表述均为品牌方宣称或其委托第三方检测结果，购买前请以品牌官方最新信息为准。价格为采集时点参考价，存在波动。
+  </div>
+</div>
+
+<script>
+// ===== 配置区 =====
+const products = [
+  { name:"欧孕 拼接", full:"欧孕（OUYUN）IXPE 拼接垫 · 小象款", tagline:"百元地板价",
+    spec:"6片×60×60×2cm", area:2.16, price:116, unit:53.7, form:"拼接", mat:"IXPE", thick:"2cm",
+    safe:"3C / 店铺检测宣称", cmt:"京东 2000+ 条",
+    metrics:{ "安全背书":3,"减震防摔":3,"易清洁":2,"收纳便携":4,"颜值早教":3,"性价比":5 },
+    note:"面价 ¥138" },
+  { name:"贝博氏 折叠", full:"贝博氏 babybox 抗菌XPE 包边折叠垫", tagline:"国民销量王",
+    spec:"180×200×2.5cm", area:3.6, price:239, unit:66.4, form:"折叠", mat:"XPE", thick:"2.5cm",
+    safe:"3C / 2019消委会实测低于限值", cmt:"京东 20万+ 条 · 98%好评",
+    metrics:{ "安全背书":4,"减震防摔":4,"易清洁":4,"收纳便携":4,"颜值早教":3,"性价比":5 },
+    note:"自营常卖价 ¥239–269" },
+  { name:"曼龙 折叠", full:"曼龙 XPE 双面折叠垫", tagline:"检测数据天花板",
+    spec:"180×200×2cm", area:3.6, price:259, unit:71.9, form:"折叠", mat:"XPE", thick:"2cm",
+    safe:"3C / 2026 Q1·Q2 送检甲酰胺·甲醛双ND + A类包边 + 食品接触级", cmt:"自营 99%好评（系列）",
+    metrics:{ "安全背书":5,"减震防摔":4,"易清洁":4,"收纳便携":4,"颜值早教":3,"性价比":4 },
+    note:"面价 ¥359，大促低至 ¥213" },
+  { name:"京造 折叠", full:"京东京造 XPE 折叠垫 · 双面抗菌", tagline:"自营背书",
+    spec:"150×200×2cm", area:3.0, price:246, unit:82.0, form:"折叠", mat:"XPE", thick:"2cm",
+    safe:"3C / 抗菌为品牌方宣称", cmt:"京东 2万+ 条",
+    metrics:{ "安全背书":4,"减震防摔":4,"易清洁":4,"收纳便携":4,"颜值早教":3,"性价比":4 },
+    note:"150×200cm 款 ¥246 起" },
+  { name:"babycare 折叠", full:"babycare 抗菌XPE 折叠垫 · 可可那小岛", tagline:"颜值早教",
+    spec:"150×180×2cm", area:2.7, price:261, unit:96.7, form:"折叠", mat:"XPE", thick:"2cm",
+    safe:"3C / 2019消委会实测 95.7mg/kg 达标", cmt:"京东同系列 2万+ 条",
+    metrics:{ "安全背书":4,"减震防摔":4,"易清洁":4,"收纳便携":4,"颜值早教":5,"性价比":3 },
+    note:"天猫 88VIP 价 ¥261" },
+  { name:"丸丫 厚垫", full:"丸丫 XPE 厚垫 · 轨道探索", tagline:"3cm 厚度党",
+    spec:"150×200×3cm", area:3.0, price:420, unit:140.0, form:"整张折叠", mat:"XPE", thick:"3cm",
+    safe:"3C / 老爸抽检甲酰胺 ND", cmt:"天猫系列月销 7万+",
+    metrics:{ "安全背书":4,"减震防摔":5,"易清洁":4,"收纳便携":3,"颜值早教":4,"性价比":3 },
+    note:"京东 ¥419.9（2026-08）" },
+  { name:"贝易 整体垫", full:"贝易（BEIESTATE）IXPE+PU覆膜 整体垫", tagline:"高端一步到位",
+    spec:"180×240×2.5cm", area:4.32, price:738, unit:170.8, form:"整张卷筒", mat:"IXPE+PU", thick:"2.5cm",
+    safe:"3C / 品牌方宣称甲酰胺 ND 级", cmt:"京东自营系列 5万+ 条",
+    metrics:{ "安全背书":4,"减震防摔":4,"易清洁":5,"收纳便携":2,"颜值早教":4,"性价比":2 },
+    note:"常卖价 ¥720–738" },
+];
+
+// ===== 概览卡片 =====
+document.getElementById('cards').innerHTML = products.map(p=>`
+  <div class="card">
+    <h3>${p.full}</h3>
+    <span class="tagline">${p.tagline}</span>
+    <div class="price">¥${p.price}</div>
+    <div class="unit">${p.unit} 元/㎡ · ${p.spec}</div>
+    <ul>
+      <li><span>形态 / 厚度</span><b>${p.form} · ${p.thick}</b></li>
+      <li><span>材质</span><b>${p.mat}</b></li>
+      <li><span>安全背书</span><b style="font-size:12px">${p.safe}</b></li>
+      <li><span>口碑</span><b style="font-size:12px">${p.cmt}</b></li>
+    </ul>
+  </div>`).join('');
+
+// ===== 雷达图 =====
+const dims = ["安全背书","减震防摔","易清洁","收纳便携","颜值早教","性价比"];
+const radar = echarts.init(document.getElementById('radar'));
+radar.setOption({
+  tooltip:{},
+  legend:{ data: products.map(p=>p.name), bottom:0, type:'scroll' },
+  radar:{ indicator: dims.map(d=>({name:d,max:5})), radius:'60%' },
+  series:[{ type:'radar', data: products.map((p,i)=>({
+    name:p.name, value:dims.map(d=>p.metrics[d]),
+    areaStyle:{opacity:.10}, lineStyle:{width:2}
+  })) }]
+});
+
+// ===== 元/㎡ 柱状图 =====
+const up = echarts.init(document.getElementById('unitprice'));
+up.setOption({
+  tooltip:{trigger:'axis', formatter:(ps)=>`${ps[0].name}<br/>${ps[0].value} 元/㎡`},
+  grid:{left:60,right:20,top:30,bottom:60},
+  xAxis:{ type:'category', data: products.map(p=>p.name), axisLabel:{interval:0,rotate:25} },
+  yAxis:{ type:'value', name:'元/㎡' },
+  series:[{ type:'bar', barWidth:'50%',
+    data: products.map(p=>({
+      value:p.unit,
+      itemStyle:{ color: p.unit<80 ? '#2E7D32' : (p.unit<120 ? '#1E5AA8' : '#C0392B') }
+    })),
+    label:{show:true, position:'top', formatter:'{c}'}
+  }]
+});
+
+// ===== 甲酰胺柱状图（2019 深检比较试验）=====
+const amide = echarts.init(document.getElementById('amide'));
+const amideData = [
+  ["明德（EVA）",2028.2],["亿恩忆（EVA）",1624.9],["迪士尼九片（EVA/EPE）",1448.2],
+  ["星期八（泡沫）",234.8],["绿美",154.5],["天利",144.7],["好孩子",105.9],
+  ["Babycare折叠垫",95.7],["Parklon帕克伦",82.3],["皮安诺",82.1],["曼龙",52.9],["猪掌柜XPE",42.9]
+];
+amide.setOption({
+  tooltip:{trigger:'axis', formatter:(ps)=>`${ps[0].name}<br/>甲酰胺 ${ps[0].value} mg/kg<br/>（国标限值 200）`},
+  grid:{left:70,right:20,top:40,bottom:90},
+  xAxis:{ type:'category', data:amideData.map(d=>d[0]), axisLabel:{interval:0,rotate:40,fontSize:11} },
+  yAxis:{ type:'value', name:'mg/kg' },
+  series:[{ type:'bar', barWidth:'55%',
+    data: amideData.map(d=>({
+      value:d[1],
+      itemStyle:{ color: d[1]>200 ? '#C0392B' : '#2E7D32' },
+      label:{show:d[1]>200, position:'top', color:'#C0392B', fontWeight:'bold', formatter:'超标'}
+    })),
+    markLine:{ data:[{yAxis:200, name:'国标限值'}], lineStyle:{color:'#C0392B',type:'dashed'}, label:{formatter:'国标限值 200'} }
+  }]
+});
+
+// ===== 详细对比表 =====
+const rows = [
+  ["形态", p=>p.form], ["内胆材质", p=>p.mat], ["厚度", p=>p.thick],
+  ["尺寸规格", p=>p.spec], ["铺开面积", p=>p.area+" ㎡"],
+  ["参考价", p=>"¥"+p.price], ["平米单价", p=>p.unit+" 元/㎡"],
+  ["安全背书", p=>p.safe], ["电商口碑", p=>p.cmt],
+];
+document.getElementById('matrix').innerHTML =
+  `<tr><th>维度</th>${products.map(p=>`<th>${p.full}</th>`).join('')}</tr>` +
+  rows.map(([k,fn])=>`<tr><td class="dim">${k}</td>${products.map(p=>{
+    const v = fn(p);
+    const hl = (k==="平米单价"||k==="参考价");
+    return `<td${hl?' class="hl"':''}>${v}</td>`;
+  }).join('')}</tr>`).join('');
+
+// ===== 比价表 =====
+document.getElementById('price').innerHTML =
+  `<tr><th>产品</th><th>规格</th><th>参考价</th><th>平米单价</th><th>价格口径备注</th></tr>` +
+  products.map(p=>`<tr><td>${p.full}</td><td>${p.spec}</td><td>¥${p.price}</td><td class="hl">${p.unit} 元/㎡</td><td style="font-size:12px">${p.note}</td></tr>`).join('');
+
+window.addEventListener('resize',()=>{ radar.resize(); up.resize(); amide.resize(); });
+</script>
+</body>
+</html>
