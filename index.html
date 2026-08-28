@@ -209,7 +209,7 @@
   <!-- 综合评分排名 -->
   <div class="section">
     <h2>综合评分排名：7 款加权总评（透明模型）</h2>
-    <p class="section-desc">把六维评分 + 新增「尺寸覆盖」统一转成百分制，按公开权重加权得到综合推荐指数。<b>这是作者主观加权模型，非仪器实测</b>（外部复核也把这点列为需自行核验的局限）；高分≠适合所有人，最后仍要结合下方「对号入座」按你的场景选。<b>贝博氏与曼龙综合分相同（85），并列第一档。</b></p>
+    <p class="section-desc">把六维评分 + 新增「尺寸覆盖」统一转成百分制，按公开权重加权得到综合推荐指数。<b>本榜统一按 2cm 同口径对比</b>：丸丫（页面展示为 3cm 厚垫）、贝易（页面展示为 180×240 整体垫）已按各自 2cm 主力款参数折算后再排名，避免厚垫/大垫靠物理规格占便宜。同 2cm 口径下，<b>贝易（PU 整体垫 2cm）居首，贝博氏 / 曼龙并列次席</b>。<b>这是作者主观加权模型，非仪器实测</b>；高分≠适合所有人，仍要结合下方「对号入座」按场景选。</p>
     <div class="callout warn" style="margin-top:10px">
       <b>权重公开</b>：安全背书 20% · 减震防摔（性能）15% · 易清洁 12% · 收纳便携 8% · 颜值早教 5% · 性价比 20% · 尺寸覆盖 20%（合计 100%）。维度分源自电商公开参数与口碑的主观评价（5 分制），尺寸分按铺开面积映射。
     </div>
@@ -357,19 +357,31 @@ radar.setOption({
   })) }]
 });
 
-// ===== 综合评分排名 =====
+// ===== 综合评分排名（统一 2cm 同口径，丸丫/贝易按 2cm 同款折算）=====
 const sizeScore = p => { const a=p.area; return a>=4?10:a>=3.5?9:a>=3?8:a>=2.5?7.5:a>=2?6.5:6; };
 const W = { "安全背书":0.20,"减震防摔":0.15,"易清洁":0.12,"收纳便携":0.08,"颜值早教":0.05,"性价比":0.20,"尺寸覆盖":0.20 };
+const rankOverride = {
+  "丸丫 厚垫": { area:3.0, price:269.9, unit:90.0,
+    metrics:{ "安全背书":4,"减震防摔":4,"易清洁":4,"收纳便携":4,"颜值早教":4,"性价比":4 },
+    rk:"综合分按 2cm 同款折算（150×200×2cm，¥269.9，老爸抽检ND）" },
+  "贝易 整体垫": { area:3.6, price:498, unit:138.3,
+    metrics:{ "安全背书":4,"减震防摔":4,"易清洁":5,"收纳便携":3,"颜值早教":4,"性价比":3 },
+    rk:"综合分按 2cm 同款折算（180×200×2cm，¥498，PU覆膜整体垫）" }
+};
 products.forEach(p=>{
-  let s=0; dims.forEach(d=> s += (p.metrics[d]*2)*W[d]); s += sizeScore(p)*W["尺寸覆盖"];
+  const o = rankOverride[p.name];
+  const pp = o ? {area:o.area, price:o.price, unit:o.unit, metrics:o.metrics} : p;
+  p._metrics = pp.metrics;
+  let s=0; dims.forEach(d=> s += (pp.metrics[d]*2)*W[d]); s += sizeScore(pp)*W["尺寸覆盖"];
   p.score = Math.round(s*100)/10;
+  p._rk = o ? o.rk : "";
 });
 const ranked = [...products].sort((a,b)=>b.score-a.score);
 const rc = echarts.init(document.getElementById('rankChart'));
 rc.setOption({
-  tooltip:{trigger:'axis', formatter:(ps)=>`${ps[0].name}<br/>综合推荐指数 ${ps[0].value} 分（百分制）`},
+  tooltip:{trigger:'axis', formatter:(ps)=>`${ps[0].name}<br/>综合推荐指数 ${ps[0].value} 分（2cm 同口径·百分制）`},
   grid:{left:70,right:40,top:30,bottom:40},
-  xAxis:{type:'value', max:100, name:'综合分'},
+  xAxis:{type:'value', max:100, name:'综合分(2cm同口径)'},
   yAxis:{type:'category', data: ranked.map(p=>p.name).reverse(), axisLabel:{fontSize:12}},
   series:[{type:'bar', barWidth:'55%',
     data: ranked.map(p=>({value:p.score, itemStyle:{color: p.score>=83?'#2E7D32':(p.score>=76?'#1E5AA8':'#C0392B')}})).reverse(),
@@ -377,18 +389,18 @@ rc.setOption({
 });
 const RC = {
  "欧孕 拼接":"百元地板价、可扩展，但薄+拼接缝隙，综合垫底，适合大宝宝临时铺。",
- "贝博氏 折叠":"性价比+大面积国民款，安全有消委会背书，综合并列第一档。",
- "曼龙 折叠":"检测数据天花板（双ND+A类包边），安全维度拉满，综合并列第一档。",
- "京造 折叠":"自营背书、性价比稳，均衡无短板，综合第三。",
- "babycare 折叠":"颜值与早教突出，单价偏高，综合实力中游。",
- "丸丫 厚垫":"3cm 厚度减震最强，但价高+收纳大，综合中上游。",
- "贝易 整体垫":"高端整张无折痕+PU面层好擦，但贵+难收纳，综合中游。"
+ "贝博氏 折叠":"性价比+大面积国民款，安全有消委会背书，2cm 同口径并列次席。",
+ "曼龙 折叠":"检测数据天花板（双ND+A类包边），安全维度拉满，2cm 同口径并列次席。",
+ "京造 折叠":"自营背书、性价比稳，均衡无短板，2cm 同口径综合第三。",
+ "babycare 折叠":"颜值与早教突出，单价偏高，2cm 同口径综合实力中游。",
+ "丸丫 厚垫":"3cm 厚垫减震最强（页面展示款）；按 2cm 同款折算后性价比凸显，综合中上游。",
+ "贝易 整体垫":"高端 PU 整体垫（页面展示 180×240）；按 2cm 同款折算后易清洁+品牌力占优，综合第一。"
 };
 document.getElementById('rankBody').innerHTML = ranked.map((p,i)=>`<tr>
   <td><b>#${i+1}</b></td>
-  <td style="text-align:left"><b>${p.full}</b><br><span style="font-size:12px;color:#888">${p.tagline}</span></td>
+  <td style="text-align:left"><b>${p.full}</b><br><span style="font-size:12px;color:#888">${p.tagline}</span>${p._rk?`<br><span style="font-size:11px;color:#C0392B">⚠️ ${p._rk}</span>`:''}</td>
   <td class="hl">${p.score}</td>
-  <td style="font-size:12px">安全 ${p.metrics['安全背书']}/5 · 减震 ${p.metrics['减震防摔']}/5 · 易清洁 ${p.metrics['易清洁']}/5</td>
+  <td style="font-size:12px">安全 ${p._metrics['安全背书']}/5 · 减震 ${p._metrics['减震防摔']}/5 · 易清洁 ${p._metrics['易清洁']}/5</td>
   <td style="font-size:12px;text-align:left">${RC[p.name]||''}</td></tr>`).join('');
 
 // ===== 元/㎡ 柱状图 =====
