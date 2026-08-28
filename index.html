@@ -55,6 +55,20 @@
   .surface-cards .sc.warn .tag{background:#fdecea;color:#C0392B;border:1px solid #f5c6c0;}
   .surface-cards .sc .row{font-size:12.5px;color:#444;line-height:1.85;border-bottom:1px dashed #f0f0f0;padding:4px 0;}
   .surface-cards .sc .row b{color:#222;}
+  .sub{font-size:16px;color:#1E5AA8;margin:18px 0 4px;}
+  .surf-table{overflow-x:auto;margin-top:12px;-webkit-overflow-scrolling:touch;}
+  .surf-table table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:720px;}
+  .surf-table th,.surf-table td{border:1px solid #e3e8f0;padding:8px 10px;text-align:left;line-height:1.55;vertical-align:top;}
+  .surf-table th{background:#f5f8fd;color:#1E5AA8;font-weight:600;white-space:nowrap;}
+  .surf-table tr:nth-child(even) td{background:#fafcff;}
+  .surf-table .rk{font-weight:700;color:#1E5AA8;text-align:center;width:30px;}
+  .surf-table .ok{color:#2E7D32;font-weight:600;}
+  .surf-table .mid{color:#b8860b;}
+  .surf-table .bad{color:#C0392B;font-weight:600;}
+  .craft-note{font-size:12.5px;color:#555;line-height:1.9;margin-top:8px;}
+  .decide{margin-top:12px;padding:14px 16px 14px 32px;background:#f5f8fd;border:1px solid #dbe6f5;border-radius:12px;}
+  .decide li{font-size:13px;color:#333;margin:7px 0;line-height:1.7;}
+  .decide b{color:#1E5AA8;}
 </style>
 </head>
 <body>
@@ -139,42 +153,68 @@
 
   <!-- 面层覆膜怎么选 -->
   <div class="section">
-    <h2>面层覆膜怎么选：布面 / PU 膜 / PVC 膜，没有最好只有最对口</h2>
-    <p class="section-desc">很多朋友纠结"覆膜是不是有毒"。先讲清：爬爬垫是三明治，你问的「面层」是最上面那层——<b>布面</b>（布直接压在发泡层上，没膜）或 <b>覆膜面</b>（在发泡层上压一层塑料膜，等于给垫子套了件塑料雨衣）。覆膜不是黑科技，好处是防水，代价是牺牲透气和触感。三种面层对比如下：</p>
+    <h2>面层覆膜怎么选：从 TPU 到 EVA 表印，整条谱系怎么排</h2>
+    <p class="section-desc">很多朋友纠结"覆膜是不是有毒"。先讲清结构：爬爬垫是三明治，你问的「面层」是最上面那层，分两派——<b>无膜面层</b>（布面，或 EVA 直接印图案）与 <b>覆膜面层</b>（发泡层上压一层塑料/皮革膜）。但面层绝不止"布面 / PU / PVC"三种，从贵到便宜、从安全到劝退是一条完整谱系；而且<b>决定安全的除了材质，还有"怎么把膜贴上去"的工艺</b>（热压 vs 胶水 vs 表印）。下面拆开讲。</p>
+
+    <h3 class="sub">① 面层材质谱系（从最安全到最劝退）</h3>
+    <div class="surf-table">
+      <table>
+        <thead><tr><th>#</th><th>面层类型</th><th>防水</th><th>亲肤</th><th>安全要点</th><th>价格</th><th>适合谁</th></tr></thead>
+        <tbody>
+          <tr><td class="rk">1</td><td><b>TPU 覆膜</b><br><span style="font-size:11px;color:#888">热塑性聚氨酯·医疗/食品级</span></td><td>✅</td><td>✅ 软弹亲肤</td><td class="ok">最优：无 PVC/BPA/邻苯/甲酰胺，化学惰性不析出</td><td>最贵</td><td>预算足、极致安全党</td></tr>
+          <tr><td class="rk">2</td><td><b>PU 覆膜</b><br><span style="font-size:11px;color:#888">聚氨酯皮革</span></td><td>✅</td><td>⚠️ 微塑料感</td><td class="ok">优：柔软环保，优于 PVC；优质款耐刮</td><td>中高</td><td>吐奶/尿多低月龄、洁癖党</td></tr>
+          <tr><td class="rk">3</td><td><b>硅胶覆膜</b></td><td>✅</td><td>✅ 亲肤</td><td class="ok">优：安全亲肤，但表面易划伤</td><td>贵</td><td>敏感肌宝宝</td></tr>
+          <tr><td class="rk">4</td><td><b>PE 膜</b><br><span style="font-size:11px;color:#888">XPE/EPE 表印膜</span></td><td>✅</td><td>⚠️ 膜面偏滑</td><td class="ok">安全：油墨封在膜内，不接触皮肤</td><td>中</td><td>主流 XPE 款标配</td></tr>
+          <tr><td class="rk">5</td><td><b>布面（无膜）</b></td><td>❌</td><td>✅ 最亲肤透气</td><td class="ok">无膜无增塑剂风险；但怕水难擦</td><td>中</td><td>大宝宝纯爬行、地暖家庭</td></tr>
+          <tr><td class="rk">6</td><td><b>PVC 覆膜</b></td><td>✅ 最强</td><td>❌ 塑料感重</td><td class="mid">慎：警惕邻苯二甲酸酯（GB 6675 限每类≤0.1%），需认"无邻苯"认证</td><td>中高</td><td>非首选；要买认 3C+无味</td></tr>
+          <tr><td class="rk">7</td><td><b>EVA 表印（无膜）</b></td><td>⚠️</td><td>❌</td><td class="bad">劝退：无法覆膜，油墨直接印表面接触皮肤；回收料甲酰胺风险</td><td>最低</td><td>尽量不买</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sub">② 比材质更关键的：覆膜工艺</h3>
+    <p class="craft-note">同样一层膜，<b>"怎么贴上去"决定有没有毒</b>。三种工艺：</p>
     <div class="surface-cards">
-      <div class="sc">
-        <h3>布面（无膜）</h3>
-        <span class="tag" style="background:#eef3fb;color:#1E5AA8;border:1px solid #cdddf3">亲肤透气</span>
-        <div class="row"><b>防水：</b>❌ 怕水，脏了难擦、易藏污纳垢</div>
-        <div class="row"><b>亲肤：</b>✅ 最亲肤、不起闷</div>
-        <div class="row"><b>安全：</b>✅ 无塑料膜、无增塑剂风险</div>
-        <div class="row"><b>耐用：</b>⚠️ 易吸味、可能起球</div>
-        <div class="row"><b>适合：</b>大宝宝纯爬行、地暖家庭</div>
-      </div>
       <div class="sc rec">
-        <h3>PU 覆膜</h3>
-        <span class="tag">✅ 好擦又安全</span>
-        <div class="row"><b>防水：</b>✅ 湿巾一擦就净</div>
-        <div class="row"><b>亲肤：</b>⚠️ 微塑料感、比布面凉</div>
-        <div class="row"><b>安全：</b>✅ 优于 PVC，柔软环保</div>
-        <div class="row"><b>耐用：</b>✅ 优质款不易掉皮</div>
-        <div class="row"><b>适合：</b>吐奶/尿多低月龄、洁癖党</div>
+        <h3>热压复合（推荐）</h3>
+        <span class="tag">✅ 无胶·VOC-free</span>
+        <div class="row"><b>做法：</b>加热辊把膜和泡棉熔接，<b>不用胶水</b></div>
+        <div class="row"><b>优势：</b>无溶剂残留、几乎无异味、油墨封在膜内</div>
+        <div class="row"><b>代表：</b>高端 XPE+PU 整张垫（如贝易工艺）</div>
       </div>
       <div class="sc warn">
-        <h3>PVC 覆膜</h3>
-        <span class="tag">⚠️ 慎选·警惕增塑剂</span>
-        <div class="row"><b>防水：</b>✅ 最强防水</div>
-        <div class="row"><b>亲肤：</b>❌ 塑料感重、低温发硬</div>
-        <div class="row"><b>安全：</b>⚠️ 警惕邻苯二甲酸酯（婴童国标 GB 6675 限每类 ≤0.1%）</div>
-        <div class="row"><b>耐用：</b>⚠️ 劣质款久用掉皮、开裂</div>
-        <div class="row"><b>适合：</b>婴幼儿不首选，认 3C + 无味</div>
+        <h3>胶水复合</h3>
+        <span class="tag">⚠️ 警惕溶剂残留</span>
+        <div class="row"><b>做法：</b>用胶黏剂把膜和泡棉粘起来</div>
+        <div class="row"><b>风险：</b>胶水溶剂可能残留 VOC，新垫刺鼻味来源之一</div>
+        <div class="row"><b>对策：</b>收货通风 24–72h，味散不掉直接退</div>
+      </div>
+      <div class="sc warn">
+        <h3>表印（仅 EVA）</h3>
+        <span class="tag">⚠️ 油墨外露</span>
+        <div class="row"><b>做法：</b>EVA 无法覆膜，图案直接印表面</div>
+        <div class="row"><b>风险：</b>油墨接触皮肤，劣质油墨含铅/镉等重金属</div>
+        <div class="row"><b>对策：</b>尽量避开 EVA 表印款</div>
       </div>
     </div>
+
+    <h3 class="sub">③ 认准这些标准，别只看"无异味"</h3>
+    <p class="craft-note">面料安全看认证：<b>3C 强制认证</b>（爬爬垫 2018 起强制）、<b>GB 6675</b>（玩具安全，限邻苯每类≤0.1%）、<b>欧盟 EN71</b> / <b>美国 ASTM F963-17</b> / <b>REACH</b>（高关注物质 SVHC）。注意：<b>"无味≠无毒"</b>——香精能盖味，新垫仍要通风散 VOC 再给娃用。</p>
+
+    <h3 class="sub">④ 按需求选面层的决策树</h3>
+    <ul class="decide">
+      <li>💰 预算足 + 极致安全 → 直接上 <b>TPU 覆膜</b>（医疗级，最贵但最稳）</li>
+      <li>🛡️ 性价比安全 + 好擦 → <b>XPE+PE 膜</b> 或 <b>PU 覆膜</b>（油墨内嵌/耐刮，主流首选）</li>
+      <li>🍼 宝宝爱吐奶尿尿 / 洁癖党 → <b>PU 覆膜</b>，湿巾一擦即净</li>
+      <li>🌡️ 地暖家庭 / 大宝宝纯爬行 → <b>布面</b>，亲肤不闷不返塑料味</li>
+      <li>🚫 远离 → <b>PVC 覆膜</b>（除非明确"无邻苯"认证）、<b>EVA 表印</b>（油墨外露+甲酰胺风险）</li>
+    </ul>
+
     <div class="callout good" style="margin-top:14px">
-      <b>一句话答案</b>：面层就两条路——<b>布面</b>（亲肤透气但不防水）和 <b>覆膜面</b>（防水好擦但有塑料感）。别纠结"哪个高级"，看宝宝会不会吐奶尿尿、地暖不地暖、在不在乎塑料味。
+      <b>一句话答案</b>：面层是整条谱系——<b>TPU &gt; PU ≈ 硅胶 &gt; PE膜 &gt; 布面 &gt; PVC &gt; EVA表印</b>。别只纠结"布面还是膜面"，先看材质排第几、工艺用热压还是胶水；没有最贵就是最好，按上面决策树对号入座。
     </div>
     <div class="callout warn" style="margin-top:10px">
-      <b>避坑金句</b>：覆膜不是越厚越安全，<b>PU 比 PVC 香，布面比膜面亲肤</b>；先看中间层是不是 XPE，再聊面层——本末别倒置。
+      <b>避坑金句</b>：覆膜不是越厚越安全，<b>TPU/PU 比 PVC 香、布面比膜面亲肤、热压比胶水稳</b>；先看中间层是不是 XPE，再聊面层——本末别倒置。
     </div>
   </div>
 
