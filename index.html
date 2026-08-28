@@ -206,6 +206,20 @@
     <div id="radar" class="radar-box"></div>
   </div>
 
+  <!-- 综合评分排名 -->
+  <div class="section">
+    <h2>综合评分排名：7 款加权总评（透明模型）</h2>
+    <p class="section-desc">把六维评分 + 新增「尺寸覆盖」统一转成百分制，按公开权重加权得到综合推荐指数。<b>这是作者主观加权模型，非仪器实测</b>（外部复核也把这点列为需自行核验的局限）；高分≠适合所有人，最后仍要结合下方「对号入座」按你的场景选。<b>贝博氏与曼龙综合分相同（85），并列第一档。</b></p>
+    <div class="callout warn" style="margin-top:10px">
+      <b>权重公开</b>：安全背书 20% · 减震防摔（性能）15% · 易清洁 12% · 收纳便携 8% · 颜值早教 5% · 性价比 20% · 尺寸覆盖 20%（合计 100%）。维度分源自电商公开参数与口碑的主观评价（5 分制），尺寸分按铺开面积映射。
+    </div>
+    <div class="bar-box" id="rankChart"></div>
+    <table style="margin-top:12px">
+      <thead><tr><th>排名</th><th>产品</th><th>综合分</th><th>关键维度（/5）</th><th>一句话点评</th></tr></thead>
+      <tbody id="rankBody"></tbody>
+    </table>
+  </div>
+
   <!-- 柱状图：元/㎡ -->
   <div class="section">
     <h2>公平比价：元/㎡ 单价对比</h2>
@@ -342,6 +356,40 @@ radar.setOption({
     areaStyle:{opacity:.10}, lineStyle:{width:2}
   })) }]
 });
+
+// ===== 综合评分排名 =====
+const sizeScore = p => { const a=p.area; return a>=4?10:a>=3.5?9:a>=3?8:a>=2.5?7.5:a>=2?6.5:6; };
+const W = { "安全背书":0.20,"减震防摔":0.15,"易清洁":0.12,"收纳便携":0.08,"颜值早教":0.05,"性价比":0.20,"尺寸覆盖":0.20 };
+products.forEach(p=>{
+  let s=0; dims.forEach(d=> s += (p.metrics[d]*2)*W[d]); s += sizeScore(p)*W["尺寸覆盖"];
+  p.score = Math.round(s*100)/10;
+});
+const ranked = [...products].sort((a,b)=>b.score-a.score);
+const rc = echarts.init(document.getElementById('rankChart'));
+rc.setOption({
+  tooltip:{trigger:'axis', formatter:(ps)=>`${ps[0].name}<br/>综合推荐指数 ${ps[0].value} 分（百分制）`},
+  grid:{left:70,right:40,top:30,bottom:40},
+  xAxis:{type:'value', max:100, name:'综合分'},
+  yAxis:{type:'category', data: ranked.map(p=>p.name).reverse(), axisLabel:{fontSize:12}},
+  series:[{type:'bar', barWidth:'55%',
+    data: ranked.map(p=>({value:p.score, itemStyle:{color: p.score>=83?'#2E7D32':(p.score>=76?'#1E5AA8':'#C0392B')}})).reverse(),
+    label:{show:true, position:'right', formatter:'{c}'}}]
+});
+const RC = {
+ "欧孕 拼接":"百元地板价、可扩展，但薄+拼接缝隙，综合垫底，适合大宝宝临时铺。",
+ "贝博氏 折叠":"性价比+大面积国民款，安全有消委会背书，综合并列第一档。",
+ "曼龙 折叠":"检测数据天花板（双ND+A类包边），安全维度拉满，综合并列第一档。",
+ "京造 折叠":"自营背书、性价比稳，均衡无短板，综合第三。",
+ "babycare 折叠":"颜值与早教突出，单价偏高，综合实力中游。",
+ "丸丫 厚垫":"3cm 厚度减震最强，但价高+收纳大，综合中上游。",
+ "贝易 整体垫":"高端整张无折痕+PU面层好擦，但贵+难收纳，综合中游。"
+};
+document.getElementById('rankBody').innerHTML = ranked.map((p,i)=>`<tr>
+  <td><b>#${i+1}</b></td>
+  <td style="text-align:left"><b>${p.full}</b><br><span style="font-size:12px;color:#888">${p.tagline}</span></td>
+  <td class="hl">${p.score}</td>
+  <td style="font-size:12px">安全 ${p.metrics['安全背书']}/5 · 减震 ${p.metrics['减震防摔']}/5 · 易清洁 ${p.metrics['易清洁']}/5</td>
+  <td style="font-size:12px;text-align:left">${RC[p.name]||''}</td></tr>`).join('');
 
 // ===== 元/㎡ 柱状图 =====
 const up = echarts.init(document.getElementById('unitprice'));
